@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Dogs } from '../model/Dogs.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class DogApiService {
 
   constructor(private http: HttpClient) {}
 
-  getDogImages(count: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/breeds/image/random/${count}`);
+  getDogImages(count: number): Observable<Dogs[]> {
+    return this.http.get<Dogs[]>(`${this.baseUrl}/breeds/image/random/${count}`);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DogApiService } from 'src/app/services/dog-api-service.service';
+import { DogApiService } from '../../services/dog-api-service.service';
+import { Dogs } from '../../model/Dogs.model';
 
 @Component({
   selector: 'app-newadoption',
@@ -7,11 +8,7 @@ import { DogApiService } from 'src/app/services/dog-api-service.service';
   styleUrls: ['./newadoption.component.css'],
 })
 export class NewadoptionComponent implements OnInit {
-  dogImage: string = '';
-  images: string[] = [];
-  imageMap: { [key: string]: string[] } = {
-    dogs: [],
-  };
+  images: Dogs[] = [];
 
   constructor(private dogApiService: DogApiService) {}
 
@@ -20,9 +17,8 @@ export class NewadoptionComponent implements OnInit {
   }
 
   loadImages(): void {
-    this.dogApiService.getDogImages(4).subscribe((dogData) => {
-      this.imageMap['dogs'] = dogData.message;
-      this.images = this.imageMap['dogs'];
+    this.dogApiService.getDogImages(4).subscribe((dogData:any) => {
+      this.images = dogData.message;
     });
   }
 }

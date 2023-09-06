@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DogApiService } from '../../../services/dog-api-service.service';
+import { DogApiService } from '../../services/dog-api-service.service';
+import { Dogs } from '../../model/Dogs.model';
 
 @Component({
   selector: 'app-adoptioncards',
@@ -8,12 +9,7 @@ import { DogApiService } from '../../../services/dog-api-service.service';
 })
 export class AdoptioncardsComponent implements OnInit {
   selectedButton: string = 'all';
-  dogImage: string = '';
-  images: string[] = [];
-  imageMap: { [key: string]: string[] } = {
-    all: [],
-    dogs: [],
-  };
+  images: Dogs[] = [];
 
   constructor(private dogApiService: DogApiService) {}
 
@@ -22,9 +18,9 @@ export class AdoptioncardsComponent implements OnInit {
   }
 
   loadImages(): void {
-    this.dogApiService.getDogImages(20).subscribe((dogData) => {
-      this.imageMap['dogs'] = dogData.message;
-      this.images = this.imageMap['dogs'];
+    this.dogApiService.getDogImages(20).subscribe((dogData:any) => {
+      this.images = dogData.message;
+      console.log(this.images);
     });
   }
 }
